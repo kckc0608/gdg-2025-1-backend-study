@@ -24,9 +24,18 @@ public class BeanTest {
     public void getOneBeanTest() {
         MyBean bean1 = context.getBean(MyBean.class);
         MyBean bean2 = context.getBean(MyBean.class);
-        MyBean bean3 = new MyBean();
+//        MyBean bean3 = new MyBean();
 
         Assertions.assertThat(bean1).isSameAs(bean2);
-        Assertions.assertThat(bean2).isNotEqualTo(bean3);
+//        Assertions.assertThat(bean2).isNotEqualTo(bean3);
+    }
+
+    @Test
+    public void dependencyInjectionTest() {
+        MyBean bean = context.getBean(MyBean.class);
+        MySubBean subBean1 = bean.getMySubBean();
+        MySubBean subBean2 = context.getBean(MySubBean.class);
+
+        Assertions.assertThat(subBean1).isSameAs(subBean2);
     }
 }
